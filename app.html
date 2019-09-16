@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=yes">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
+        
+        <title>Offline Web App Demo</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" href="favicon.ico">
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <h1>
+            Demonstration: 
+        </h1>
+        <h2>
+            Map Polygons
+        </h2>
+        <p id="user-agent"></p>
+        <p id="user-message"></p>
+        <div id="map">
+        You need to provide a valid Google Maps JavaScript API key.  If you don't have one you can sign-up 
+        <a href="https://developers.google.com/maps/documentation/javascript/get-api-key">here.</a>
+        </div>
+        <div class="mycontainer">
+            <div class="mywebapp"> 
+                <input id="apikey" value="Enter your API key here"/>
+                <button id="api-btn">Load</button>
+                <button id="cor-btn">Show</button>
+                <p id="instructions">Enter your Google mapping API Key and press Load</p>    
+            </div>
+        </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script async defer src="map.js"></script>
+
+        <script>
+            var s;
+            var ua = $('#user-agent');
+            var instructions = $('#instructions');
+            ua.text('testing on : ' + navigator.userAgent);
+
+            // dynamically load the google maps script using the supplied API key
+            $("#api-btn").click(function(){
+                var loadapi="https://maps.googleapis.com/maps/api/js?key="+$("#apikey").val()+"&callback=initMap";
+                var script = document.createElement("script");
+                script.setAttribute("src",loadapi);
+                document.getElementsByTagName("head")[0].appendChild(script);
+            }); 
+            $("#cor-btn").click(function(){
+                instructions.text(showCoordinates(s));
+            });
+            $("#apikey").focus(function(){
+                $(this).val('');
+            }); 
+        </script>
+    </body>
+</html>
